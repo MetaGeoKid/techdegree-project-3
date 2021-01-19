@@ -1,7 +1,7 @@
-# Create your Phrase class logic here.
 class Phrase:
-    def __init__(self):
-        self.phrase = ""
+    def __init__(self, phrase):
+        self.phrase = phrase
+        self.phrase = self.phrase.lower()
         self.blank_list = []
     
     #Need to return the phrase with the _ and the letters guessed correctly
@@ -11,7 +11,7 @@ class Phrase:
                 if i == " ":
                     self.blank_list.append(" ")
                 else:
-                    self.blank_list.append("_")
+                    self.blank_list.append("_ ")
             blank_str = ""
             blank_str = blank_str.join(self.blank_list)
             print(blank_str)
