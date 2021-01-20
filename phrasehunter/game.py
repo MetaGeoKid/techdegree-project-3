@@ -7,40 +7,37 @@ class Game:
         self.phrases = [Phrase("Winner winner chicken dinner"), Phrase("Howdy Partner"), 
                    Phrase("There is a snake in my boot"), Phrase("Are we there yet"),
                    Phrase("In a while crocodile")]
-        self.active_phrase = None
+        self.active_phrase = self.get_random_phrase()
         self.guesses = []
     
     
-    def start(self, phrase):
-        phrase.display(phrase.phrase, None)
+    def start(self):
+        self.active_phrase.display(None)
         guess = self.get_guess()
         while True:
-            if phrase.display(phrase.phrase, guess) == 1:
+            if self.active_phrase.display(guess) == 1:
                 self.missed += 1
                 print("You have guessed {} out of 5 lives remaining.\n".format(5 - self.missed))
                 if self.missed == 5:
                     return self.game_over()
             else:
                 print()
-                print(phrase.display(phrase.phrase, guess))
+                print(self.active_phrase.display(guess))
                 print()
-                if phrase.check_complete() == True:
+                if self.active_phrase.check_complete() == True:
                     return self.game_over()
             guess = self.get_guess()
             
-        return phrase
+        return self.active_phrase
     
         
     def get_random_phrase(self):
-        self.active_phrase = random.choice(self.phrases)
-        return self.active_phrase
+        return random.choice(self.phrases)
         
         
     def welcome(self):
-        use_phrase = self.get_random_phrase()
         print("Welcome to Phrase Hunter!")
         while True:    
-            #make sure there isn't an error
             participate = input("Would you like to play? (Y/N): ")
             print()
             try:
@@ -51,7 +48,7 @@ class Game:
                 print("Please try again.\n")
             else:
                 if participate.lower() == "y":
-                    return self.start(use_phrase)
+                    return self.start()
                 else:
                     break
         
@@ -82,3 +79,4 @@ class Game:
             print("Too many misses! Game Over.")
         else:
             print("You're a winner (chicken dinner)!")
+        
