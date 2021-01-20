@@ -5,11 +5,11 @@ class Phrase:
         self.blank_list = []
     
     #Need to return the phrase with the _ and the letters guessed correctly
-    def display(self, phrase, guess):
+    def display(self, guess):
         if guess == None:
-            for i in phrase:
+            for i in self.phrase:
                 if i == " ":
-                    self.blank_list.append(" ")
+                    self.blank_list.append("  ")
                 else:
                     self.blank_list.append("_ ")
             blank_str = ""
@@ -17,26 +17,31 @@ class Phrase:
             print(blank_str)
             return self.blank_list
         else:
-            if self.check_letter(phrase, guess) == True:
+            if self.check_letter(guess) == True:
                 old_pos = 0
-                for letter in phrase:
+                for letter in self.phrase:
                     if letter == guess:
-                        position = phrase.find(letter, old_pos)
-                        self.blank_list[position] = guess
+                        position = self.phrase.find(letter, old_pos)
+                        self.blank_list[position] = guess + " "
                         old_pos = position + 1
                 check_str = ""
                 return(check_str.join(self.blank_list))
             else:
                 return 1
             
-    def check_letter(self, phrase, guess):
-        if phrase.find(guess) >= 0:
+    def check_letter(self, guess):
+        if self.phrase.find(guess) >= 0:
             return True
         else:
             print("Sorry, {} is not in the phrase.".format(guess))
             return False
         
     def check_complete(self):
+        check_list = []
+        phrase = self.phrase
+        for letter in phrase:
+            check_list.append(letter + " ")
+        revised_phrase = ""
         check_str = ""
-        if self.phrase == check_str.join(self.blank_list):
+        if revised_phrase.join(check_list) == check_str.join(self.blank_list):
             return True
